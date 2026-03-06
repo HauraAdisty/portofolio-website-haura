@@ -47,15 +47,38 @@
 
 <body class="min-h-screen flex flex-col transition-colors duration-300 overflow-x-hidden relative">
 
-   <nav class="fixed z-50 left-0 right-0 w-full py-4 md:py-8 bg-[#1a1a1a]/90 dark:bg-[#1a1a1a]/90 light:bg-white/90 backdrop-blur-md border-b border-white/5 dark:border-white/5 border-black/5">
-        <div class="container mx-auto px-4 md:px-28 flex items-center overflow-x-auto no-scrollbar">
-            <ul class="flex flex-row gap-x-6 md:gap-x-8 items-center opacity-80 font-semibold text-[11px] md:text-[12px] tracking-widest uppercase dark:text-white text-black whitespace-nowrap w-max mx-auto">
+   <nav class="fixed z-50 left-0 right-0 w-full bg-[#1a1a1a]/90 dark:bg-[#1a1a1a]/90 light:bg-white/90 backdrop-blur-md border-b border-white/5 dark:border-white/5 border-black/5">
+        <div class="container mx-auto px-6 py-5 flex items-center justify-between md:justify-center">
+            
+            <div class="md:hidden w-8"></div> 
+
+            <ul class="hidden md:flex flex-row gap-x-8 items-center opacity-80 font-semibold text-[12px] tracking-widest uppercase dark:text-white text-black">
                 <li><a class="glow transition-all nav-link" href="#header">Home</a></li>
                 <li><a class="glow transition-all nav-link" href="#about">About</a></li>
                 <li><a class="glow transition-all nav-link" href="#experiences">Experiences</a></li>
                 <li><a class="glow transition-all nav-link" href="#services">Services</a></li>
                 <li><a class="glow transition-all nav-link" href="#projects">Projects</a></li>
                 <li><a class="glow transition-all nav-link" href="#contact">Contact</a></li>
+            </ul>
+
+            <button id="burger-btn" class="md:hidden text-black dark:text-white focus:outline-none p-1 z-50">
+                <svg id="icon-burger" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h12M4 18h8"></path>
+                </svg>
+                <svg id="icon-close" class="hidden w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white dark:bg-[#1a1a1a] border-b border-gray-200 dark:border-[#333] shadow-lg pb-6">
+            <ul class="flex flex-col px-8 py-4 gap-y-6 text-[18px] font-bold dark:text-white text-black">
+                <li><a class="mobile-nav-link block w-full hover:text-gray-500 transition-colors" href="#header">Home</a></li>
+                <li><a class="mobile-nav-link block w-full hover:text-gray-500 transition-colors" href="#about">About</a></li>
+                <li><a class="mobile-nav-link block w-full hover:text-gray-500 transition-colors" href="#experiences">Experiences</a></li>
+                <li><a class="mobile-nav-link block w-full hover:text-gray-500 transition-colors" href="#services">Services</a></li>
+                <li><a class="mobile-nav-link block w-full hover:text-gray-500 transition-colors" href="#projects">Projects</a></li>
+                <li><a class="mobile-nav-link block w-full hover:text-gray-500 transition-colors" href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -423,20 +446,24 @@
         }
 
         // Script Scroll Halus
-       const burgerBtn = document.getElementById('burger-btn');
+      const burgerBtn = document.getElementById('burger-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const iconBurger = document.getElementById('icon-burger');
+        const iconClose = document.getElementById('icon-close');
 
-        // Buka/tutup menu saat tombol burger dipencet
+        // Fungsi buka/tutup menu & ganti ikon
         burgerBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            iconBurger.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
         });
 
-        // Otomatis menutup menu saat salah satu link dipencet (agar layar tidak tertutup)
-        document.querySelectorAll('.nav-link').forEach(link => {
+        // Otomatis menutup menu & kembali ke ikon garis tiga saat link diklik
+        document.querySelectorAll('.mobile-nav-link, .nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
+                mobileMenu.classList.add('hidden');
+                iconBurger.classList.remove('hidden');
+                iconClose.classList.add('hidden');
             });
         });
     </script>
